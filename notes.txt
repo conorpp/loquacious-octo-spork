@@ -1,0 +1,18 @@
+
+OTP
+===
+
+### OTP Password format
+
+    - 48 bit public user id
+    - 128 bit password
+        - calculated based on various internal fields (???), a RNG, and a persistent counter
+            - 6 byte private id field used in OTP verification.  typically set to 0 when not used.
+            - 2 counter fields
+                - first counter is persistent and increments once per power cycle
+                - second counter is volatile and increments once per OTP generation
+            - 24 bit timer field.  For 8 Hz timer for increasing entropy.  It's initialized
+            with a random number at power up and increments at 8 Hz.
+            - 16 bit random number
+            - CRC16 of all fields
+    - encoded into 4 bit encoded characters chosen by yubikey for best keyboard consistency across different locales.
